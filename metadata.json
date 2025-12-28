@@ -1,0 +1,7 @@
+{
+  "name": "AccessPass Network",
+  "description": "A centralized membership network MVP connecting clients to company benefits with QR validation.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
