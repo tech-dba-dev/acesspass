@@ -205,7 +205,7 @@ export const CompanyValidator: React.FC = () => {
   return (
     <div className="max-w-xl mx-auto space-y-8">
        <div className="text-center">
-         <h2 className="text-2xl font-bold text-gray-900">Validar Acesso</h2>
+         <h2 className="text-2xl font-bold text-gradient-primary">Validar Acesso</h2>
          <p className="text-gray-500 mt-2">Escaneie o QR Code do cliente ou digite o código manualmente.</p>
        </div>
 
@@ -405,7 +405,7 @@ export const CompanyHistory: React.FC = () => {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold text-gray-800">Histórico de Visitas</h2>
+        <h2 className="text-2xl font-bold text-gradient-primary">Histórico de Visitas</h2>
         <div className="text-sm text-gray-500">
           {filteredLogs.length} {filteredLogs.length === 1 ? 'registro' : 'registros'}
         </div>

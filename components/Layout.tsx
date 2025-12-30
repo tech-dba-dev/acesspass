@@ -68,9 +68,8 @@ const Layout: React.FC<LayoutProps> = ({ children, activeTab, setActiveTab }) =>
     <div className="min-h-screen bg-gray-50 flex flex-col md:flex-row">
       {/* Desktop Sidebar */}
       <aside className="hidden md:flex flex-col w-64 bg-white border-r border-gray-200 h-screen sticky top-0 z-20">
-        <div className="p-6 border-b border-gray-100">
-          <h1 className="text-2xl font-bold text-primary-600 tracking-tight">AccessPass</h1>
-          <p className="text-xs text-gray-400 mt-1 uppercase tracking-wider">{currentUser.role}</p>
+        <div className="p-6 flex justify-center">
+          <img src="/logo.png" alt="Wellbeing" className="h-20 w-auto" />
         </div>
         <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
           {navItems.map((item) => (
@@ -79,11 +78,11 @@ const Layout: React.FC<LayoutProps> = ({ children, activeTab, setActiveTab }) =>
               onClick={() => navigate(item.path)}
               className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group ${
                 currentPath === item.path 
-                  ? 'bg-primary-50 text-primary-600 font-medium shadow-sm' 
+                  ? 'bg-gradient-primary text-white font-medium shadow-sm' 
                   : 'text-gray-500 hover:bg-gray-50 hover:text-gray-900'
               }`}
             >
-              <item.icon className={`w-5 h-5 ${currentPath === item.path ? 'text-primary-500' : 'text-gray-400 group-hover:text-gray-600'}`} />
+              <item.icon className={`w-5 h-5 ${currentPath === item.path ? 'text-white' : 'text-gray-400 group-hover:text-gray-600'}`} />
               {item.label}
             </button>
           ))}
@@ -111,7 +110,7 @@ const Layout: React.FC<LayoutProps> = ({ children, activeTab, setActiveTab }) =>
         {/* Mobile Header */}
         <div className="md:hidden bg-white px-4 py-4 border-b border-gray-200 flex items-center justify-between sticky top-0 z-10">
           <div>
-            <h1 className="text-xl font-bold text-primary-600">AccessPass</h1>
+            <img src="/logo.png" alt="Wellbeing" className="h-8 w-auto" />
           </div>
           <div className="flex items-center gap-2">
             <Avatar src={currentUser.avatar} alt={currentUser.name} size="sm" />

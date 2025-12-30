@@ -12,7 +12,7 @@ export const ClientExplore: React.FC = () => {
   return (
     <div className="space-y-6">
       <div className="flex flex-col gap-2">
-        <h2 className="text-2xl font-bold text-gray-800">Explorar Benefícios</h2>
+        <h2 className="text-2xl font-bold text-gradient-primary">Explorar Benefícios</h2>
         <p className="text-gray-500">Descubra empresas parceiras e aproveite seus descontos exclusivos.</p>
       </div>
       
@@ -88,7 +88,7 @@ export const ClientCard: React.FC = () => {
     <div className="flex flex-col items-center justify-center min-h-[70vh] py-8">
       <div className="w-full max-w-sm bg-white rounded-[2rem] shadow-2xl overflow-hidden relative border border-gray-100">
         {/* Card Header Background with Avatar */}
-        <div className="h-44 bg-gradient-to-br from-primary-600 to-indigo-700 relative overflow-hidden flex flex-col items-center justify-center">
+        <div className="h-44 bg-gradient-primary relative overflow-hidden flex flex-col items-center justify-center">
            <div className="absolute top-0 left-0 w-full h-full opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
            <div className="relative z-10">
              <div className="w-20 h-20 rounded-full bg-white/20 backdrop-blur-sm p-1 shadow-lg">

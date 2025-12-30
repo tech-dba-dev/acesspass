@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AppProvider, useApp } from './services/store';
 import { ToastProvider } from './components/Toast';
 import LoginPage from './components/LoginPage';
+import ResetPasswordPage from './pages/ResetPasswordPage';
 import { ProtectedRoute } from './routes/ProtectedRoute';
 import { Loader2 } from 'lucide-react';
 
@@ -33,7 +34,7 @@ const AppRoutes = () => {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="flex flex-col items-center gap-4">
-          <Loader2 className="w-12 h-12 text-blue-600 animate-spin" />
+          <Loader2 className="w-12 h-12 text-primary-500 animate-spin" />
           <p className="text-gray-600">Carregando...</p>
         </div>
       </div>
@@ -58,6 +59,7 @@ const AppRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={<RootRedirect />} />
+      <Route path="/reset-password" element={<ResetPasswordPage />} />
 
       {/* Admin Routes */}
       <Route

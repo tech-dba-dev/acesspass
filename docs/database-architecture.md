@@ -1,8 +1,8 @@
-# Arquitetura de Banco de Dados - AccessPass Network
+# Arquitetura de Banco de Dados - Wellbeing Network
 
 ## Visão Geral
 
-Este documento descreve a arquitetura de banco de dados do AccessPass Network implementada no Supabase com PostgreSQL.
+Este documento descreve a arquitetura de banco de dados do Wellbeing Network implementada no Supabase com PostgreSQL.
 
 **Stack:** Supabase (PostgreSQL 13+) com Row Level Security (RLS) habilitado
 

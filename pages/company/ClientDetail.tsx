@@ -72,7 +72,7 @@ export const CompanyClientDetailPage = () => {
           <p className="text-gray-600 mb-6">O cliente que você procura não existe.</p>
           <button
             onClick={() => navigate('/painel/parceiro/historico')}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-primary text-white rounded-lg hover:bg-gradient-primary-hover transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             Voltar para Histórico
@@ -94,7 +94,7 @@ export const CompanyClientDetailPage = () => {
             <ArrowLeft className="w-4 h-4" />
             Voltar
           </button>
-          <h1 className="text-3xl font-bold text-gray-900">Perfil do Cliente</h1>
+          <h1 className="text-3xl font-bold text-gradient-primary">Perfil do Cliente</h1>
         </div>
 
         {/* Client Card */}

@@ -22,7 +22,7 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
   const getVariantStyles = () => {
     switch (variant) {
       case 'search':
-        return 'bg-blue-50/50 border-blue-100';
+        return 'bg-primary-50/50 border-primary-100';
       case 'filter':
         return 'bg-amber-50/50 border-amber-100';
       default:
@@ -33,7 +33,7 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
   const getIconStyles = () => {
     switch (variant) {
       case 'search':
-        return 'text-blue-400';
+        return 'text-primary-400';
       case 'filter':
         return 'text-amber-400';
       default:
@@ -45,7 +45,7 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
     <div className={`rounded-2xl border-2 border-dashed p-12 text-center ${getVariantStyles()}`}>
       <div className="flex flex-col items-center justify-center space-y-4">
         <div className={`w-20 h-20 rounded-full flex items-center justify-center ${
-          variant === 'search' ? 'bg-blue-100/50' :
+          variant === 'search' ? 'bg-primary-100/50' :
           variant === 'filter' ? 'bg-amber-100/50' :
           'bg-gray-100'
         }`}>
@@ -64,7 +64,7 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
         {action && (
           <button
             onClick={action.onClick}
-            className="mt-4 px-6 py-2.5 bg-primary-600 text-white rounded-lg hover:bg-primary-700 font-medium shadow-sm hover:shadow transition-all"
+            className="mt-4 px-6 py-2.5 bg-gradient-primary text-white rounded-lg hover:bg-gradient-primary-hover font-medium shadow-sm hover:shadow transition-all"
           >
             {action.label}
           </button>

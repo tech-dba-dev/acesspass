@@ -172,7 +172,7 @@ export const CompanyDataPage = () => {
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">Dados da Empresa</h1>
+            <h1 className="text-2xl font-bold text-gradient-primary">Dados da Empresa</h1>
             <p className="text-gray-500 mt-1">Gerencie as informações da sua empresa</p>
           </div>
           {hasChanges && (
@@ -363,14 +363,14 @@ export const CompanyDataPage = () => {
               type="button"
               onClick={handleReset}
               disabled={isSubmitting || !hasChanges}
-              className="px-5 py-2.5 text-gray-700 hover:text-gray-900 font-medium hover:bg-gray-200 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-5 py-2.5 text-gray-700 hover:text-gray-900 font-medium hover:bg-gray-200 rounded-xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Descartar Alterações
             </button>
             <button
               type="submit"
               disabled={isSubmitting || !hasChanges}
-              className="px-6 py-2.5 bg-primary-600 text-white rounded-lg hover:bg-primary-700 font-medium shadow-sm hover:shadow transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              className="px-6 py-2.5 bg-gradient-primary text-white rounded-lg hover:bg-gradient-primary-hover font-medium shadow-sm hover:shadow transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
               {isSubmitting ? (
                 <>

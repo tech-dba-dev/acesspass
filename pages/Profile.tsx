@@ -117,7 +117,7 @@ export const Profile: React.FC = () => {
 
   return (
     <div className="max-w-2xl mx-auto">
-      <h2 className="text-2xl font-bold text-gray-800 mb-6">Meu Perfil</h2>
+      <h2 className="text-2xl font-bold text-gradient-primary mb-6">Meu Perfil</h2>
       
       {/* Tabs */}
       <div className="flex gap-1 mb-6 bg-gray-100 rounded-lg p-1">
@@ -125,7 +125,7 @@ export const Profile: React.FC = () => {
           onClick={() => setActiveTab('profile')}
           className={`flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-md font-medium text-sm transition-all ${
             activeTab === 'profile'
-              ? 'bg-white text-gray-900 shadow-sm'
+              ? 'bg-gradient-primary text-white shadow-sm'
               : 'text-gray-600 hover:text-gray-900'
           }`}
         >
@@ -136,7 +136,7 @@ export const Profile: React.FC = () => {
           onClick={() => setActiveTab('password')}
           className={`flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-md font-medium text-sm transition-all ${
             activeTab === 'password'
-              ? 'bg-white text-gray-900 shadow-sm'
+              ? 'bg-gradient-primary text-white shadow-sm'
               : 'text-gray-600 hover:text-gray-900'
           }`}
         >
@@ -187,7 +187,7 @@ export const Profile: React.FC = () => {
                   <button
                     onClick={() => avatarInputRef.current?.click()}
                     disabled={isUploadingAvatar}
-                    className="block mt-2 text-sm text-primary-600 hover:text-primary-700 font-medium disabled:opacity-50"
+                    className="block mt-2 text-sm text-gradient-primary hover:opacity-80 font-medium disabled:opacity-50 transition"
                   >
                     {isUploadingAvatar ? 'Enviando...' : 'Trocar foto de perfil'}
                   </button>
@@ -243,7 +243,7 @@ export const Profile: React.FC = () => {
                   )}
                   <button 
                       onClick={handleSave}
-                      className="ml-auto bg-black text-white px-6 py-2.5 rounded-xl font-medium hover:bg-gray-800 transition"
+                      className="ml-auto bg-gradient-primary text-white px-6 py-2.5 rounded-xl font-medium hover:bg-gradient-primary-hover transition"
                   >
                       Salvar Alterações
                   </button>
@@ -372,7 +372,7 @@ export const Profile: React.FC = () => {
             <div className="pt-2">
               <button
                 type="submit"
-                className="w-full bg-black text-white px-6 py-3 rounded-xl font-medium hover:bg-gray-800 transition"
+                className="w-full bg-gradient-primary text-white px-6 py-3 rounded-xl font-medium hover:bg-gradient-primary-hover transition"
               >
                 Alterar Senha
               </button>

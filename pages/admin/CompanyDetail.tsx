@@ -21,7 +21,7 @@ export const CompanyDetailPage = () => {
           <p className="text-gray-600 mb-6">A empresa que você procura não existe.</p>
           <button
             onClick={() => navigate('/painel/admin/empresas')}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-primary text-white rounded-lg hover:bg-gradient-primary-hover transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             Voltar para Empresas
@@ -43,7 +43,7 @@ export const CompanyDetailPage = () => {
             <ArrowLeft className="w-4 h-4" />
             Voltar
           </button>
-          <h1 className="text-3xl font-bold text-gray-900">Detalhes da Empresa</h1>
+          <h1 className="text-3xl font-bold text-gradient-primary">Detalhes da Empresa</h1>
         </div>
 
         {/* Company Card */}
@@ -67,11 +67,11 @@ export const CompanyDetailPage = () => {
                   <p className="text-lg font-bold text-green-600">{company.benefit}</p>
                 </div>
               </div>
-              <div className="flex items-start gap-3 p-4 bg-blue-50 rounded-lg">
-                <MapPin className="w-5 h-5 text-blue-600 mt-0.5" />
+              <div className="flex items-start gap-3 p-4 bg-primary-50 rounded-lg">
+                <MapPin className="w-5 h-5 text-primary-600 mt-0.5" />
                 <div>
                   <p className="text-sm font-medium text-gray-700">Endereço</p>
-                  <p className="text-blue-600">{company.address}</p>
+                  <p className="text-primary-600">{company.address}</p>
                 </div>
               </div>
             </div>

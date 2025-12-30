@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useApp } from '../services/store';
 import { useToast } from './Toast';
+import { supabase } from '../services/supabase';
 import { Lock, Mail, User as UserIcon, Eye, EyeOff, X, CheckCircle, Send, Loader2 } from 'lucide-react';
 
 const LoginPage = () => {
@@ -16,6 +17,7 @@ const LoginPage = () => {
   const [forgotPasswordEmail, setForgotPasswordEmail] = useState('');
   const [emailSent, setEmailSent] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSendingReset, setIsSendingReset] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -97,14 +99,38 @@ const LoginPage = () => {
     setForgotPasswordEmail('');
   };
 
-  const handleSendResetEmail = (e: React.FormEvent) => {
+  const handleSendResetEmail = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!forgotPasswordEmail) return;
     
-    // Simular envio de email
-    setTimeout(() => {
+    setIsSendingReset(true);
+    
+    try {
+      const { error } = await supabase.auth.resetPasswordForEmail(forgotPasswordEmail, {
+        redirectTo: `${window.location.origin}/reset-password`,
+      });
+
+      if (error) {
+        // Tratamento especial para rate limit
+        if (error.message.includes('can only request this after')) {
+          const match = error.message.match(/after (\d+) seconds/);
+          const seconds = match ? match[1] : 'alguns';
+          showToast(`Por segurança, aguarde ${seconds} segundos para solicitar novamente`, 'error');
+        } else {
+          showToast('Erro ao enviar email de recuperação', 'error');
+        }
+        console.error('Reset password error:', error);
+        return;
+      }
+
       setEmailSent(true);
-    }, 800);
+      showToast('Email enviado com sucesso!', 'success');
+    } catch (error) {
+      console.error('Error sending reset email:', error);
+      showToast('Erro ao enviar email de recuperação', 'error');
+    } finally {
+      setIsSendingReset(false);
+    }
   };
 
   const closeModal = () => {
@@ -117,53 +143,14 @@ const LoginPage = () => {
     <>
       <div className="min-h-screen flex">
       {/* Left Side - Illustration */}
-      <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-cyan-400 via-blue-400 to-blue-500 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIj48cGF0aCBkPSJNMzYgMzRjMC0yLjIxIDEuNzktNCA0LTRzNCAxLjc5IDQgNC0xLjc5IDQtNCA0LTQtMS43OS00LTR6bS0yMCAwYzAtMi4yMSAxLjc5LTQgNC00czQgMS43OSA0IDQtMS43OSA0LTQgNC00LTEuNzktNC00eiIvPjwvZz48L2c+PC9zdmc+')] opacity-30"></div>
-        
-        {/* Decorative circles */}
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-white opacity-10 rounded-full -mb-48 -ml-48"></div>
-        <div className="absolute top-20 right-20 w-72 h-72 bg-white opacity-10 rounded-full"></div>
-        <div className="absolute bottom-40 right-40 w-40 h-40 bg-white opacity-10 rounded-full"></div>
-        
-        {/* Illustration Content */}
-        <div className="relative z-10 flex flex-col items-center justify-center w-full p-12">
-          <div className="bg-white/20 backdrop-blur-sm rounded-3xl p-12 shadow-2xl">
-            {/* Door illustration */}
-            <div className="relative">
-              <div className="w-48 h-72 bg-gradient-to-b from-gray-100 to-gray-200 rounded-3xl shadow-xl relative overflow-hidden">
-                {/* Door panels */}
-                <div className="absolute inset-4 flex gap-2">
-                  <div className="flex-1 bg-white rounded-xl shadow-inner"></div>
-                  <div className="flex-1 bg-white rounded-xl shadow-inner"></div>
-                </div>
-                {/* Door handle */}
-                <div className="absolute right-6 top-1/2 -translate-y-1/2 w-4 h-8 bg-gray-400 rounded-full shadow-md"></div>
-              </div>
-              
-              {/* Person illustration */}
-              <div className="absolute -right-16 top-1/2 -translate-y-1/2">
-                <div className="relative">
-                  {/* Head */}
-                  <div className="w-16 h-16 bg-gradient-to-br from-blue-600 to-blue-700 rounded-full relative">
-                    <div className="absolute top-3 left-3 w-10 h-10 bg-blue-500 rounded-full"></div>
-                  </div>
-                  {/* Body */}
-                  <div className="mt-2 w-16 h-24 bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl relative overflow-hidden">
-                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-8 h-8 bg-blue-500 rounded-b-full"></div>
-                  </div>
-                  {/* Arms */}
-                  <div className="absolute top-20 -left-2 w-6 h-16 bg-blue-700 rounded-full -rotate-12"></div>
-                  <div className="absolute top-20 -right-2 w-6 h-16 bg-blue-700 rounded-full rotate-45"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          {/* Decorative elements */}
-          <div className="mt-12 text-white text-center">
-            <h2 className="text-4xl font-bold mb-4">Bem-vindo de volta!</h2>
-            <p className="text-lg text-white/80">Acesse sua conta e aproveite os benefícios</p>
-          </div>
+      <div className="hidden lg:flex lg:w-1/2 bg-gradient-primary relative overflow-hidden">
+        {/* Imagem centralizada */}
+        <div className="relative z-10 flex items-center justify-center w-full h-full">
+          <img
+            src="/imagelogin.png"
+            alt="AcessPass"
+            className="w-full h-full object-cover"
+          />
         </div>
       </div>
 
@@ -171,8 +158,8 @@ const LoginPage = () => {
       <div className="flex-1 flex items-center justify-center p-8 bg-gray-50">
         <div className="w-full max-w-md">
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">
-              {isRegister ? 'CRIAR CONTA' : 'LOGIN'}
+            <h1 className="text-3xl font-bold text-gradient-primary mb-2">
+              {isRegister ? 'Criar Conta' : 'Login'}
             </h1>
             <p className="text-gray-500">
               {isRegister ? 'Preencha seus dados para se cadastrar' : 'Entre com suas credenciais'}
@@ -196,7 +183,7 @@ const LoginPage = () => {
                     type="text"
                     value={formData.name}
                     onChange={handleChange}
-                    className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
                     placeholder="Seu nome completo"
                   />
                 </div>
@@ -218,7 +205,7 @@ const LoginPage = () => {
                   type="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
                   placeholder="admin@pass.com"
                 />
               </div>
@@ -239,7 +226,7 @@ const LoginPage = () => {
                   type={showPassword ? 'text' : 'password'}
                   value={formData.password}
                   onChange={handleChange}
-                  className="block w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="block w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
                   placeholder="••••••••"
                 />
                 <button
@@ -272,7 +259,7 @@ const LoginPage = () => {
                     type={showConfirmPassword ? 'text' : 'password'}
                     value={formData.confirmPassword}
                     onChange={handleChange}
-                    className="block w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="block w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
                     placeholder="••••••••"
                   />
                   <button
@@ -299,7 +286,7 @@ const LoginPage = () => {
                   type="checkbox"
                   checked={rememberMe}
                   onChange={(e) => setRememberMe(e.target.checked)}
-                  className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                  className="h-4 w-4 text-primary-500 focus:ring-primary-500 border-gray-300 rounded"
                 />
                 <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-700">
                   {isRegister ? 'Manter conectado' : 'Remember me'}
@@ -310,7 +297,7 @@ const LoginPage = () => {
                   <button
                     type="button"
                     onClick={handleForgotPassword}
-                    className="font-medium text-blue-600 hover:text-blue-500"
+                    className="font-medium text-primary-500 hover:text-primary-600 transition-colors"
                   >
                     Esqueceu a senha?
                   </button>
@@ -329,7 +316,7 @@ const LoginPage = () => {
             <button
               type="submit"
               disabled={isSubmitting || isLoading}
-              className="w-full flex justify-center items-center gap-2 py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full flex justify-center items-center gap-2 py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-gradient-primary hover:bg-gradient-primary-hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {(isSubmitting || isLoading) && <Loader2 className="w-4 h-4 animate-spin" />}
               {isRegister ? 'Criar Conta' : 'Entrar'}
@@ -347,7 +334,7 @@ const LoginPage = () => {
                       setError('');
                       setFormData({ email: '', password: '', confirmPassword: '', name: '' });
                     }}
-                    className="font-medium text-blue-600 hover:text-blue-500"
+                    className="font-medium text-primary-500 hover:text-primary-600 transition-colors"
                   >
                     Fazer Login
                   </button>
@@ -362,29 +349,18 @@ const LoginPage = () => {
                       setError('');
                       setFormData({ email: '', password: '', confirmPassword: '', name: '' });
                     }}
-                    className="font-medium text-blue-600 hover:text-blue-500"
+                    className="font-medium text-primary-500 hover:text-primary-600 transition-colors"
                   >
                     Registrar-se
                   </button>
                 </>
               )}
             </div>
-
-            {/* Demo Credentials Info */}
-            {!isRegister && (
-              <div className="mt-4 p-3 bg-gray-100 rounded-lg text-xs text-gray-600">
-                <p className="font-semibold mb-1">Credenciais de teste:</p>
-                <p><strong>Admin:</strong> admin@accesspass.com</p>
-                <p><strong>Empresa:</strong> empresa@accesspass.com</p>
-                <p><strong>Cliente:</strong> cliente@accesspass.com</p>
-                <p className="mt-1"><strong>Senha:</strong> Test@123</p>
-              </div>
-            )}
           </form>
 
           {/* Footer */}
           <p className="mt-8 text-center text-xs text-gray-500">
-            © 2025 AccessPass. Todos os direitos reservados.
+            © {new Date().getFullYear()} Wellbeing. Todos os direitos reservados.
           </p>
         </div>
       </div>
@@ -402,7 +378,7 @@ const LoginPage = () => {
               >
                 <X className="w-5 h-5" />
               </button>
-              <h3 className="text-2xl font-bold text-gray-900">
+              <h3 className="text-2xl font-bold text-gradient-primary">
                 {emailSent ? 'Email Enviado!' : 'Recuperar Senha'}
               </h3>
               <p className="text-sm text-gray-500 mt-1">
@@ -429,7 +405,7 @@ const LoginPage = () => {
                         type="email"
                         value={forgotPasswordEmail}
                         onChange={(e) => setForgotPasswordEmail(e.target.value)}
-                        className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
                         placeholder="seu@email.com"
                         required
                         autoFocus
@@ -439,10 +415,20 @@ const LoginPage = () => {
 
                   <button
                     type="submit"
-                    className="w-full flex items-center justify-center gap-2 py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all"
+                    disabled={isSendingReset}
+                    className="w-full flex items-center justify-center gap-2 py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-gradient-primary hover:bg-gradient-primary-hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    <Send className="w-4 h-4" />
-                    Enviar Link de Recuperação
+                    {isSendingReset ? (
+                      <>
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                        Enviando...
+                      </>
+                    ) : (
+                      <>
+                        <Send className="w-4 h-4" />
+                        Enviar Link de Recuperação
+                      </>
+                    )}
                   </button>
                 </form>
               ) : (
@@ -456,7 +442,7 @@ const LoginPage = () => {
                   <p className="text-gray-600 mb-1">
                     Enviamos um link de recuperação para:
                   </p>
-                  <p className="text-blue-600 font-medium mb-4">
+                  <p className="text-primary-500 font-medium mb-4">
                     {forgotPasswordEmail}
                   </p>
                   <p className="text-sm text-gray-500 mb-6">
@@ -480,7 +466,7 @@ const LoginPage = () => {
                   <button
                     type="button"
                     onClick={closeModal}
-                    className="text-blue-600 hover:text-blue-500 font-medium"
+                    className="text-primary-500 hover:text-primary-600 font-medium transition-colors"
                   >
                     Voltar ao login
                   </button>

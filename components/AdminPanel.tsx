@@ -185,10 +185,10 @@ export const AdminCompanies: React.FC = () => {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold text-gray-800">Gerenciar Empresas</h2>
+        <h2 className="text-2xl font-bold text-gradient-primary">Gerenciar Empresas</h2>
         <button 
           onClick={() => { resetForm(); setIsModalOpen(true); }}
-          className="bg-primary-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-primary-700 transition"
+          className="bg-gradient-primary text-white px-4 py-2 rounded-xl flex items-center gap-2 hover:bg-gradient-primary-hover transition shadow-sm"
         >
           <Plus className="w-4 h-4" /> Nova Empresa
         </button>
@@ -341,7 +341,7 @@ export const AdminCompanies: React.FC = () => {
                 type="button"
                 onClick={resetForm}
                 disabled={isSubmitting}
-                className="px-5 py-2.5 text-gray-700 hover:text-gray-900 font-medium hover:bg-gray-100 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-5 py-2.5 text-gray-700 hover:text-gray-900 font-medium hover:bg-gray-100 rounded-xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Cancelar
               </button>
@@ -349,7 +349,7 @@ export const AdminCompanies: React.FC = () => {
                 type="submit"
                 form="company-form"
                 disabled={isSubmitting}
-                className="px-6 py-2.5 bg-primary-600 text-white rounded-lg hover:bg-primary-700 font-medium shadow-sm hover:shadow transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 min-w-[140px]"
+                className="px-6 py-2.5 bg-gradient-primary text-white rounded-lg hover:bg-gradient-primary-hover font-medium shadow-sm hover:shadow transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 min-w-[140px]"
               >
                 {isSubmitting ? (
                   <>
@@ -432,7 +432,7 @@ export const AdminCompanies: React.FC = () => {
                       <div className="flex items-center justify-end gap-2">
                         <button
                           onClick={() => navigate(`/painel/admin/empresas/${c.slug}`)}
-                          className="p-1.5 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition"
+                          className="p-1.5 text-gray-400 hover:text-primary-500 hover:bg-primary-50 rounded-lg transition"
                           title="Ver Detalhes"
                         >
                           <Eye className="w-4 h-4" />
@@ -541,14 +541,14 @@ export const AdminCompanies: React.FC = () => {
                 <button
                   onClick={cancelDelete}
                   disabled={isSubmitting}
-                  className="flex-1 px-4 py-2.5 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 font-medium transition disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex-1 px-4 py-2.5 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 font-medium transition disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Cancelar
                 </button>
                 <button
                   onClick={confirmDelete}
                   disabled={isSubmitting}
-                  className="flex-1 px-4 py-2.5 bg-red-600 text-white rounded-lg hover:bg-red-700 font-medium transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                  className="flex-1 px-4 py-2.5 bg-red-600 text-white rounded-xl hover:bg-red-700 font-medium transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                 >
                   {isSubmitting ? (
                     <>
@@ -757,11 +757,11 @@ export const AdminClients: React.FC = () => {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center flex-wrap gap-3">
-        <h2 className="text-2xl font-bold text-gray-800">Gerenciar Usuários</h2>
+        <h2 className="text-2xl font-bold text-gradient-primary">Gerenciar Usuários</h2>
         <div className="flex gap-2">
           <button
             onClick={() => { resetForm(); setIsModalOpen(true); }}
-            className="bg-primary-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-primary-700 transition"
+            className="bg-gradient-primary text-white px-4 py-2 rounded-xl flex items-center gap-2 hover:bg-gradient-primary-hover transition shadow-sm"
           >
             <Plus className="w-4 h-4" /> Novo Usuário
           </button>
@@ -981,7 +981,7 @@ export const AdminClients: React.FC = () => {
                 type="button"
                 onClick={resetForm}
                 disabled={isSubmitting}
-                className="px-5 py-2.5 text-gray-700 hover:text-gray-900 font-medium hover:bg-gray-100 rounded-lg transition-colors disabled:opacity-50"
+                className="px-5 py-2.5 text-gray-700 hover:text-gray-900 font-medium hover:bg-gray-100 rounded-xl transition-colors disabled:opacity-50"
               >
                 Cancelar
               </button>
@@ -989,7 +989,7 @@ export const AdminClients: React.FC = () => {
                 type="submit"
                 form="user-form"
                 disabled={isSubmitting}
-                className="px-6 py-2.5 bg-primary-600 text-white rounded-lg hover:bg-primary-700 font-medium shadow-sm hover:shadow transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                className="px-6 py-2.5 bg-gradient-primary text-white rounded-lg hover:bg-gradient-primary-hover font-medium shadow-sm hover:shadow transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
               >
                 {isSubmitting && (
                   <svg className="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -1047,7 +1047,7 @@ export const AdminClients: React.FC = () => {
                     </td>
                     <td className="px-6 py-4">
                       <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                        u.role === 'company' ? 'bg-purple-100 text-purple-800' : 'bg-blue-100 text-blue-800'
+                        u.role === 'company' ? 'bg-secondary-100 text-secondary-800' : 'bg-primary-100 text-primary-800'
                       }`}>
                         {u.role === 'company' ? 'Empresa' : 'Cliente'}
                       </span>
@@ -1183,14 +1183,14 @@ export const AdminClients: React.FC = () => {
                 <button
                   onClick={cancelDelete}
                   disabled={isDeleting}
-                  className="flex-1 px-4 py-2.5 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 font-medium transition disabled:opacity-50"
+                  className="flex-1 px-4 py-2.5 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 font-medium transition disabled:opacity-50"
                 >
                   Cancelar
                 </button>
                 <button
                   onClick={confirmDelete}
                   disabled={isDeleting}
-                  className="flex-1 px-4 py-2.5 bg-red-600 text-white rounded-lg hover:bg-red-700 font-medium transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                  className="flex-1 px-4 py-2.5 bg-red-600 text-white rounded-xl hover:bg-red-700 font-medium transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                 >
                   {isDeleting && (
                     <svg className="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">

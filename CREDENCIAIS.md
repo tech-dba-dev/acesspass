@@ -1,4 +1,4 @@
-# 🔐 Credenciais de Acesso - AccessPass
+# 🔐 Credenciais de Acesso - Wellbeing
 
 ## Usuários Fictícios para Demo
 

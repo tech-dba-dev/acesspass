@@ -21,7 +21,7 @@ export const ClientCompanyDetailPage = () => {
           <p className="text-gray-600 mb-6">A empresa que você procura não existe.</p>
           <button
             onClick={() => navigate('/painel')}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-primary text-white rounded-lg hover:bg-gradient-primary-hover transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             Voltar para Explorar
@@ -43,7 +43,7 @@ export const ClientCompanyDetailPage = () => {
             <ArrowLeft className="w-4 h-4" />
             Voltar
           </button>
-          <h1 className="text-3xl font-bold text-gray-900">Detalhes do Parceiro</h1>
+          <h1 className="text-3xl font-bold text-gradient-primary">Detalhes do Parceiro</h1>
         </div>
 
         {/* Company Card */}
@@ -60,7 +60,7 @@ export const ClientCompanyDetailPage = () => {
               <h2 className="text-3xl font-bold text-white mb-2">{company.name}</h2>
               <div className="flex items-center gap-2">
                 <span className="px-3 py-1 bg-white/20 backdrop-blur-sm text-white rounded-full text-sm font-medium">
-                  Parceiro AccessPass
+                  Parceiro Wellbeing
                 </span>
               </div>
             </div>
@@ -86,7 +86,7 @@ export const ClientCompanyDetailPage = () => {
                     <p className="text-sm text-gray-600 mb-1">Desconto disponível</p>
                     <p className="text-2xl font-bold text-green-700">{company.benefit}</p>
                     <p className="text-sm text-gray-500 mt-2">
-                      Apresente seu código AccessPass no estabelecimento para garantir seu desconto
+                      Apresente seu código Wellbeing no estabelecimento para garantir seu desconto
                     </p>
                   </div>
                 </div>
@@ -96,11 +96,11 @@ export const ClientCompanyDetailPage = () => {
             {/* Location */}
             <div className="mb-8">
               <h3 className="text-lg font-semibold text-gray-900 mb-4">Localização</h3>
-              <div className="flex items-start gap-3 p-4 bg-blue-50 rounded-xl border border-blue-100">
-                <MapPin className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" />
+              <div className="flex items-start gap-3 p-4 bg-primary-50 rounded-xl border border-primary-100">
+                <MapPin className="w-5 h-5 text-primary-600 mt-0.5 flex-shrink-0" />
                 <div>
                   <p className="font-medium text-gray-900">{company.address}</p>
-                  <a href={`https://maps.google.com/?q=${encodeURIComponent(company.address)}`} target="_blank" rel="noopener noreferrer" className="text-sm text-blue-600 hover:text-blue-700 mt-1 inline-block">
+                  <a href={`https://maps.google.com/?q=${encodeURIComponent(company.address)}`} target="_blank" rel="noopener noreferrer" className="text-sm text-primary-600 hover:text-primary-700 mt-1 inline-block">
                     Ver no mapa →
                   </a>
                 </div>

@@ -116,7 +116,7 @@ export const ClientProfile: React.FC = () => {
 
   return (
     <div className="max-w-2xl mx-auto">
-      <h2 className="text-2xl font-bold text-gray-800 mb-6">Meu Perfil</h2>
+      <h2 className="text-2xl font-bold text-gradient-primary mb-6">Meu Perfil</h2>
 
       {/* Tabs */}
       <div className="flex gap-1 mb-6 bg-gray-100 rounded-lg p-1">
@@ -124,7 +124,7 @@ export const ClientProfile: React.FC = () => {
           onClick={() => setActiveTab('profile')}
           className={`flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-md font-medium text-sm transition-all ${
             activeTab === 'profile'
-              ? 'bg-white text-gray-900 shadow-sm'
+              ? 'bg-gradient-primary text-white shadow-sm'
               : 'text-gray-600 hover:text-gray-900'
           }`}
         >
@@ -135,7 +135,7 @@ export const ClientProfile: React.FC = () => {
           onClick={() => setActiveTab('password')}
           className={`flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-md font-medium text-sm transition-all ${
             activeTab === 'password'
-              ? 'bg-white text-gray-900 shadow-sm'
+              ? 'bg-gradient-primary text-white shadow-sm'
               : 'text-gray-600 hover:text-gray-900'
           }`}
         >
@@ -247,7 +247,7 @@ export const ClientProfile: React.FC = () => {
               )}
               <button
                 onClick={handleSave}
-                className="ml-auto bg-black text-white px-6 py-2.5 rounded-xl font-medium hover:bg-gray-800 transition"
+                className="ml-auto bg-gradient-primary text-white px-6 py-2.5 rounded-xl font-medium hover:bg-gradient-primary-hover transition"
               >
                 Salvar Alterações
               </button>
@@ -377,7 +377,7 @@ export const ClientProfile: React.FC = () => {
               <button
                 type="submit"
                 disabled={isChangingPassword}
-                className="w-full bg-black text-white px-6 py-3 rounded-xl font-medium hover:bg-gray-800 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                className="w-full bg-gradient-primary text-white px-6 py-3 rounded-xl font-medium hover:bg-gradient-primary-hover transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
                 {isChangingPassword ? (
                   <>
