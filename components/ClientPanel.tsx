@@ -3,61 +3,73 @@ import { useApp } from '../services/store';
 import { useNavigate } from 'react-router-dom';
 import { MapPin, Gift, Search, Copy, ArrowRight, Store, User } from 'lucide-react';
 import { EmptyState } from './EmptyState';
-import { CompanyImage } from './Avatar';
+import { CompanyCardImage } from './Avatar';
 
 export const ClientExplore: React.FC = () => {
   const { companies } = useApp();
   const navigate = useNavigate();
-  
+  const [searchQuery, setSearchQuery] = React.useState('');
+
+  // Filter companies based on search query
+  const filteredCompanies = companies.filter(c =>
+    searchQuery.trim() === '' ||
+    c.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    c.benefit.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    c.description?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    c.address?.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <div className="space-y-6">
       <div className="flex flex-col gap-2">
         <h2 className="text-2xl font-bold text-gradient-primary">Explorar Benefícios</h2>
         <p className="text-gray-500">Descubra empresas parceiras e aproveite seus descontos exclusivos.</p>
       </div>
-      
-      {/* Search Bar - Visual only for MVP */}
+
+      {/* Search Bar */}
       <div className="relative">
         <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-        <input 
-          type="text" 
-          placeholder="Buscar empresas, descontos..." 
+        <input
+          type="text"
+          placeholder="Buscar empresas, descontos..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
           className="w-full pl-12 pr-4 py-3.5 bg-white border-0 shadow-sm rounded-2xl text-gray-700 outline-none focus:ring-2 focus:ring-primary-100"
         />
       </div>
 
-      {companies.length === 0 ? (
+      {filteredCompanies.length === 0 ? (
         <EmptyState
           icon={Store}
-          title="Nenhuma empresa parceira disponível"
-          description="No momento não há empresas parceiras cadastradas. Em breve você terá acesso a benefícios exclusivos."
+          title={searchQuery ? "Nenhum resultado encontrado" : "Nenhuma empresa parceira disponível"}
+          description={searchQuery ? "Tente buscar por outros termos ou limpe o filtro." : "No momento não há empresas parceiras cadastradas. Em breve você terá acesso a benefícios exclusivos."}
           variant="default"
         />
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {companies.map(c => (
+          {filteredCompanies.map(c => (
             <div
               key={c.id}
               onClick={() => navigate(`/painel/empresas/${c.slug}`)}
               className="group bg-white rounded-3xl border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer overflow-hidden"
             >
-              {/* Header with gradient background */}
-              <div className="h-32 bg-gradient-primary relative">
-                <div className="absolute top-3 right-3 bg-white/20 backdrop-blur-sm p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+              {/* Header with company image covering full area */}
+              <div className="h-48 relative overflow-hidden">
+                <CompanyCardImage src={c.image} alt={c.name} className="group-hover:scale-105 transition-transform duration-500" />
+                {/* Dark gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                {/* Company name */}
+                <div className="absolute bottom-4 left-4 right-4 z-10">
+                  <h3 className="text-white font-bold text-xl leading-tight line-clamp-2">{c.name}</h3>
+                </div>
+                {/* Arrow icon on hover */}
+                <div className="absolute top-3 right-3 z-10 bg-white/20 backdrop-blur-sm p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
                   <ArrowRight className="w-5 h-5 text-white" />
                 </div>
               </div>
 
-              {/* Company image overlapping header */}
-              <div className="flex justify-center -mt-16 mb-4 px-5">
-                <div className="ring-4 ring-white rounded-full">
-                  <CompanyImage src={c.image} alt={c.name} size="lg" />
-                </div>
-              </div>
-
               {/* Content */}
-              <div className="px-5 pb-5">
-                <h3 className="text-center font-bold text-lg text-gray-900 mb-4 line-clamp-1">{c.name}</h3>
+              <div className="px-5 pt-5 pb-5">
 
                 <div className="flex items-start gap-3 mb-4">
                   <div className="bg-gradient-to-br from-primary-50 to-secondary-50 p-2.5 rounded-xl shrink-0">
