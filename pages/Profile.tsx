@@ -148,13 +148,13 @@ export const Profile: React.FC = () => {
       {/* Profile Tab */}
       {activeTab === 'profile' && (
         <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-8">
-          <div className="flex items-center gap-6 mb-8">
-              <div className="relative group">
-                  <Avatar 
-                    src={currentUser.avatar} 
-                    alt={currentUser.name} 
-                    size="xl" 
-                    className="ring-4 ring-gray-50" 
+          <div className="flex flex-col md:flex-row items-center md:items-start gap-6 mb-8">
+              <div className="relative group flex-shrink-0">
+                  <Avatar
+                    src={currentUser.avatar}
+                    alt={currentUser.name}
+                    size="xl"
+                    className="ring-4 ring-gray-50"
                   />
                   <button
                     onClick={() => avatarInputRef.current?.click()}
@@ -178,16 +178,16 @@ export const Profile: React.FC = () => {
                     className="hidden"
                   />
               </div>
-              <div>
-                  <h3 className="text-xl font-bold text-gray-900">{currentUser.name}</h3>
-                  <p className="text-gray-500">{currentUser.email}</p>
+              <div className="text-center md:text-left flex-1 min-w-0">
+                  <h3 className="text-xl font-bold text-gray-900 truncate">{currentUser.name}</h3>
+                  <p className="text-gray-500 truncate">{currentUser.email}</p>
                   <span className="inline-block mt-2 px-3 py-1 bg-gray-100 text-gray-600 text-xs font-medium rounded-full uppercase">
-                      {currentUser.role}
+                      {currentUser.role === 'company' ? 'COMPANY (Empresa)' : currentUser.role}
                   </span>
                   <button
                     onClick={() => avatarInputRef.current?.click()}
                     disabled={isUploadingAvatar}
-                    className="block mt-2 text-sm text-gradient-primary hover:opacity-80 font-medium disabled:opacity-50 transition"
+                    className="block mt-2 mx-auto md:mx-0 text-sm text-gradient-primary hover:opacity-80 font-medium disabled:opacity-50 transition"
                   >
                     {isUploadingAvatar ? 'Enviando...' : 'Trocar foto de perfil'}
                   </button>

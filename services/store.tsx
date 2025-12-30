@@ -284,15 +284,16 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   // Logout
   const logout = async () => {
     console.log('🚪 Logging out...');
-    
+
     // Clear refs first
     lastFetchedUserId.current = null;
     fetchingRef.current = false;
-    
+
     // Clear state immediately to show login screen
     setCurrentUser(null);
     setSession(null);
-    
+    setIsLoading(false); // Reset loading state
+
     // Clear all Supabase related items from localStorage
     const keysToRemove: string[] = [];
     for (let i = 0; i < localStorage.length; i++) {
@@ -302,7 +303,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       }
     }
     keysToRemove.forEach(key => localStorage.removeItem(key));
-    
+
     // Sign out from Supabase (may fail but we've already cleared local state)
     try {
       await supabase.auth.signOut({ scope: 'local' });
@@ -310,6 +311,9 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     } catch (error) {
       console.error('Supabase signOut error (ignored):', error);
     }
+
+    // Force clear session storage as well
+    sessionStorage.clear();
   };
 
   // Fetch all users (for admin)

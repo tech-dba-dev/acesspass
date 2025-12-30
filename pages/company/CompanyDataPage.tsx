@@ -186,7 +186,7 @@ export const CompanyDataPage = () => {
         {/* Current Status Card */}
         <div className="bg-gradient-to-br from-primary-500 to-primary-700 rounded-2xl p-6 text-white">
           <div className="flex items-start gap-4">
-            <div className="w-20 h-20 rounded-xl overflow-hidden bg-white/10 flex-shrink-0">
+            <div className="w-20 h-20 rounded-full overflow-hidden bg-white/10 flex-shrink-0">
               {imagePreview ? (
                 <img src={imagePreview} alt={formData.name} className="w-full h-full object-cover" />
               ) : (

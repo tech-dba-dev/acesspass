@@ -1,7 +1,6 @@
 import React from 'react';
 import { useApp } from '../services/store';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { useToast } from './Toast';
 import { Avatar } from './Avatar';
 import { 
   LayoutDashboard, 
@@ -23,16 +22,17 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children, activeTab, setActiveTab }) => {
   const { currentUser, logout } = useApp();
-  const { showToast } = useToast();
   const navigate = useNavigate();
   const location = useLocation();
 
   if (!currentUser) return <>{children}</>;
 
-  const handleLogout = async () => {
-    await logout();
-    showToast('Você saiu da sua conta', 'info');
-    navigate('/');
+  const handleLogout = () => {
+    logout();
+    // Force immediate page refresh to clear all state
+    setTimeout(() => {
+      window.location.href = '/';
+    }, 100);
   };
 
   const getNavItems = () => {
@@ -127,16 +127,18 @@ const Layout: React.FC<LayoutProps> = ({ children, activeTab, setActiveTab }) =>
 
       {/* Mobile Bottom Nav */}
       <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 pb-safe z-30">
-        <div className="flex justify-around items-center">
+        <div className="flex justify-around items-center p-1">
           {navItems.map((item) => (
             <button
               key={item.id}
               onClick={() => navigate(item.path)}
-              className={`flex flex-col items-center py-3 px-2 w-full transition-colors ${
-                currentPath === item.path ? 'text-primary-600' : 'text-gray-400'
+              className={`flex flex-col items-center py-2 px-2 w-full rounded-lg transition-all ${
+                currentPath === item.path
+                  ? 'bg-gradient-primary text-white shadow-sm'
+                  : 'text-gray-400 hover:text-gray-600'
               }`}
             >
-              <item.icon className={`w-6 h-6 mb-1 ${currentPath === item.path ? 'fill-current opacity-20' : ''}`} strokeWidth={currentPath === item.path ? 2.5 : 2} />
+              <item.icon className="w-5 h-5 mb-1" strokeWidth={currentPath === item.path ? 2.5 : 2} />
               <span className="text-[10px] font-medium">{item.label}</span>
             </button>
           ))}

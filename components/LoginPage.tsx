@@ -155,18 +155,18 @@ const LoginPage = () => {
       </div>
 
       {/* Right Side - Login Form */}
-      <div className="flex-1 flex items-center justify-center p-8 bg-gray-50">
+      <div className="flex-1 flex items-center justify-center p-6 md:p-8 bg-gray-50">
         <div className="w-full max-w-md">
-          <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-gradient-primary mb-2">
+          <div className="text-center mb-6 md:mb-8">
+            <h1 className="text-2xl md:text-3xl font-bold text-gradient-primary mb-2">
               {isRegister ? 'Criar Conta' : 'Login'}
             </h1>
-            <p className="text-gray-500">
+            <p className="text-sm md:text-base text-gray-500">
               {isRegister ? 'Preencha seus dados para se cadastrar' : 'Entre com suas credenciais'}
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-lg p-8 space-y-6">
+          <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-lg p-6 md:p-8 space-y-5 md:space-y-6">
             {/* Name Input - Only for Register */}
             {isRegister && (
               <div>
@@ -183,7 +183,7 @@ const LoginPage = () => {
                     type="text"
                     value={formData.name}
                     onChange={handleChange}
-                    className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                    className="block w-full pl-10 pr-3 py-3.5 md:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors text-base"
                     placeholder="Seu nome completo"
                   />
                 </div>
@@ -205,7 +205,7 @@ const LoginPage = () => {
                   type="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                  className="block w-full pl-10 pr-3 py-3.5 md:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors text-base"
                   placeholder="admin@pass.com"
                 />
               </div>
@@ -226,7 +226,7 @@ const LoginPage = () => {
                   type={showPassword ? 'text' : 'password'}
                   value={formData.password}
                   onChange={handleChange}
-                  className="block w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                  className="block w-full pl-10 pr-10 py-3.5 md:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors text-base"
                   placeholder="••••••••"
                 />
                 <button
@@ -289,7 +289,7 @@ const LoginPage = () => {
                   className="h-4 w-4 text-primary-500 focus:ring-primary-500 border-gray-300 rounded"
                 />
                 <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-700">
-                  {isRegister ? 'Manter conectado' : 'Remember me'}
+                  {isRegister ? 'Manter conectado' : 'Lembrar-me'}
                 </label>
               </div>
               {!isRegister && (

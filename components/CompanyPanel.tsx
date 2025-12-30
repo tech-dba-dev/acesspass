@@ -136,6 +136,8 @@ export const CompanyValidator: React.FC = () => {
       setResult({ user: null, status: 'error' });
     } finally {
       setIsValidating(false);
+      // Clear the input after validation
+      setCode('');
     }
   };
 
@@ -155,7 +157,7 @@ export const CompanyValidator: React.FC = () => {
         // Stop scanner after successful scan
         stopScanner();
         setIsScanning(false);
-        setCode(decodedText);
+        // Don't set code in input, just validate directly
         handleValidate(decodedText);
       };
 
@@ -300,13 +302,13 @@ export const CompanyValidator: React.FC = () => {
                   </div>
                 )}
 
-                <button 
+                <button
                   onClick={startScanner}
-                  className="w-full py-6 border-2 border-dashed border-primary-200 bg-primary-50 rounded-2xl flex flex-col items-center gap-2 hover:bg-primary-100 hover:border-primary-300 transition group"
+                  className="w-full py-6 border-2 border-dashed border-primary-300 bg-gradient-to-br from-primary-50 to-secondary-50 rounded-2xl flex flex-col items-center gap-2 hover:from-primary-100 hover:to-secondary-100 hover:border-primary-400 transition group"
                 >
-                    <ScanLine className="w-8 h-8 text-primary-500 group-hover:scale-110 transition-transform" />
+                    <ScanLine className="w-8 h-8 text-primary-600 group-hover:scale-110 transition-transform" />
                     <span className="font-semibold text-primary-700">Abrir Câmera</span>
-                    <span className="text-xs text-primary-500">Escanear QR Code do cliente</span>
+                    <span className="text-xs text-primary-600">Escanear QR Code do cliente</span>
                 </button>
 
                 <div className="relative">
@@ -318,18 +320,18 @@ export const CompanyValidator: React.FC = () => {
                     </div>
                 </div>
 
-                <div className="flex gap-2">
-                    <input 
+                <div className="flex flex-col sm:flex-row gap-3">
+                    <input
                         value={code}
                         onChange={handleCodeChange}
                         placeholder="Ex: 123-4567-89"
                         maxLength={12}
                         className="flex-1 p-3 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-primary-500 font-mono text-lg tracking-wider placeholder:font-sans placeholder:text-base placeholder:tracking-normal"
                     />
-                    <button 
+                    <button
                         onClick={() => handleValidate(code)}
                         disabled={!code || code.length < 11}
-                        className="bg-gray-900 text-white px-6 rounded-xl font-medium hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="bg-gradient-primary text-white px-6 py-3 sm:py-0 rounded-xl font-medium hover:bg-gradient-primary-hover disabled:opacity-50 disabled:cursor-not-allowed transition-all whitespace-nowrap"
                     >
                         Validar
                     </button>
@@ -525,7 +527,9 @@ export const CompanyHistory: React.FC = () => {
                 return (
                   <div
                     key={log.id}
-                    onClick={() => navigate(`/painel/parceiro/clientes/${log.clientId}`)}
+                    onClick={() => navigate(`/painel/parceiro/clientes/${log.clientId}`, {
+                      state: { fromHistory: true }
+                    })}
                     className="p-4 hover:bg-gray-50 transition flex items-center justify-between cursor-pointer group"
                   >
                     <div className="flex items-center gap-4">
@@ -554,10 +558,10 @@ export const CompanyHistory: React.FC = () => {
             {/* Pagination */}
             {totalPages > 1 && (
               <div className="border-t border-gray-100 px-4 py-3 flex items-center justify-between">
-                <div className="text-sm text-gray-500">
+                <div className="hidden md:block text-sm text-gray-500">
                   Mostrando {startIndex + 1} a {Math.min(startIndex + itemsPerPage, filteredLogs.length)} de {filteredLogs.length}
                 </div>
-                <div className="flex gap-2">
+                <div className="flex gap-2 mx-auto md:mx-0">
                   <button
                     onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
                     disabled={currentPage === 1}

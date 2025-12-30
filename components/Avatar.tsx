@@ -80,26 +80,26 @@ export const Avatar: React.FC<AvatarProps> = ({
 };
 
 // Company image component
-export const CompanyImage: React.FC<CompanyImageProps> = ({ 
-  src, 
-  alt = 'Company', 
+export const CompanyImage: React.FC<CompanyImageProps> = ({
+  src,
+  alt = 'Company',
   size = 'md',
   className = '',
-  rounded = 'lg'
+  rounded = 'full'
 }) => {
   if (src) {
     return (
-      <img 
-        src={src} 
-        alt={alt} 
-        className={`${companySizeClasses[size]} ${roundedClasses[rounded]} object-cover bg-gray-200 ${className}`}
+      <img
+        src={src}
+        alt={alt}
+        className={`${companySizeClasses[size]} ${roundedClasses[rounded]} object-cover bg-gray-200 flex-shrink-0 ${className}`}
       />
     );
   }
 
   // Placeholder with building icon
   return (
-    <div className={`${companySizeClasses[size]} ${roundedClasses[rounded]} bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center ${className}`}>
+    <div className={`${companySizeClasses[size]} ${roundedClasses[rounded]} bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center flex-shrink-0 ${className}`}>
       <Building2 className={`${companyIconSizes[size]} text-gray-400`} />
     </div>
   );

@@ -184,11 +184,11 @@ export const AdminCompanies: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center">
+      <div className="flex flex-col gap-4">
         <h2 className="text-2xl font-bold text-gradient-primary">Gerenciar Empresas</h2>
-        <button 
+        <button
           onClick={() => { resetForm(); setIsModalOpen(true); }}
-          className="bg-gradient-primary text-white px-4 py-2 rounded-xl flex items-center gap-2 hover:bg-gradient-primary-hover transition shadow-sm"
+          className="bg-gradient-primary text-white px-4 py-2 rounded-xl flex items-center justify-center gap-2 hover:bg-gradient-primary-hover transition shadow-sm w-full sm:w-auto sm:self-start"
         >
           <Plus className="w-4 h-4" /> Nova Empresa
         </button>
@@ -417,7 +417,7 @@ export const AdminCompanies: React.FC = () => {
                       </div>
                     </td>
                     <td className="px-6 py-4">
-                      <div className="flex items-center gap-1.5 text-primary-600 text-sm font-medium">
+                      <div className="flex items-center gap-1.5 text-secondary-600 text-sm font-medium">
                         <Tag className="w-3.5 h-3.5" />
                         {c.benefit}
                       </div>
@@ -756,16 +756,14 @@ export const AdminClients: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center flex-wrap gap-3">
+      <div className="flex flex-col gap-4">
         <h2 className="text-2xl font-bold text-gradient-primary">Gerenciar Usuários</h2>
-        <div className="flex gap-2">
-          <button
-            onClick={() => { resetForm(); setIsModalOpen(true); }}
-            className="bg-gradient-primary text-white px-4 py-2 rounded-xl flex items-center gap-2 hover:bg-gradient-primary-hover transition shadow-sm"
-          >
-            <Plus className="w-4 h-4" /> Novo Usuário
-          </button>
-        </div>
+        <button
+          onClick={() => { resetForm(); setIsModalOpen(true); }}
+          className="bg-gradient-primary text-white px-4 py-2 rounded-xl flex items-center justify-center gap-2 hover:bg-gradient-primary-hover transition shadow-sm w-full sm:w-auto sm:self-start"
+        >
+          <Plus className="w-4 h-4" /> Novo Usuário
+        </button>
       </div>
 
       {/* Search Bar */}

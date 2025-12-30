@@ -148,8 +148,8 @@ export const ClientProfile: React.FC = () => {
       {activeTab === 'profile' && (
         <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-8">
           {/* User Header */}
-          <div className="flex items-center gap-6 mb-8 pb-6 border-b border-gray-100">
-            <div className="relative group">
+          <div className="flex flex-col md:flex-row items-center md:items-start gap-6 mb-8 pb-6 border-b border-gray-100">
+            <div className="relative group flex-shrink-0">
               <input
                 type="file"
                 ref={avatarInputRef}
@@ -157,7 +157,7 @@ export const ClientProfile: React.FC = () => {
                 accept="image/*"
                 className="hidden"
               />
-              <div 
+              <div
                 onClick={() => !isUploadingAvatar && avatarInputRef.current?.click()}
                 className="cursor-pointer"
               >
@@ -171,11 +171,11 @@ export const ClientProfile: React.FC = () => {
                 </div>
               </div>
             </div>
-            <div className="flex-1">
-              <h3 className="text-xl font-bold text-gray-900 mb-1">{currentUser.name}</h3>
-              <p className="text-gray-500 flex items-center gap-2 mb-3">
-                <Mail className="w-4 h-4" />
-                {currentUser.email}
+            <div className="flex-1 min-w-0 text-center md:text-left">
+              <h3 className="text-xl font-bold text-gray-900 mb-1 truncate">{currentUser.name}</h3>
+              <p className="text-gray-500 flex items-center justify-center md:justify-start gap-2 mb-3 truncate">
+                <Mail className="w-4 h-4 flex-shrink-0" />
+                <span className="truncate">{currentUser.email}</span>
               </p>
               {currentUser.memberCode && (
                 <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-primary-50 border border-primary-200 text-primary-700 rounded-lg">
